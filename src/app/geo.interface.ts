@@ -8,7 +8,7 @@ export interface CountryFromApi {
 }
 
 export interface CountryDisplay {
-  commonName: string;
+  commonName?: string;
   capital: string[];
   currencies?: string[];
   languages?: string[];

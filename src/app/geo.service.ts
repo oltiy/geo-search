@@ -15,7 +15,7 @@ export class GeoService {
       map((res: CountryFromApi[]) => {
         if (!res.length) return null;
         return res.map((item: CountryFromApi) => ({
-          commonName: item.name.common,
+          commonName: item.name?.common,
           capital: item.capital,
           currencies: Object.keys(item.currencies ?? {}),
           languages: Object.values(item.languages ?? {}),

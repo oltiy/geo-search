@@ -14,20 +14,23 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 })
 export class ResultsComponent implements OnChanges {
   countries = input<CountryDisplay[] | null>();
-  totalCountries: number = 0;
+  totalCountries = 0;
   dataSource!: MatTableDataSource<CountryDisplay>;
   dataSourceDisplay = new MatTableDataSource<CountryDisplay>([]);
-  displayedColumns: string[] = ['commonName', 'capital', 'currencies', 'languages', 'population', 'flags'];
+  displayedColumns = ['commonName', 'capital', 'currencies', 'languages', 'population', 'flags'];
 
   ngOnChanges(): void {
     this.totalCountries = this.countries()?.length ?? 0;
     this.dataSource = new MatTableDataSource<CountryDisplay>(this.countries() ?? []);
-    this.dataSourceDisplay.data = this.dataSource.data.slice(0, 10);
+    this.setPaginateDisplay(0, 10);
   }
 
   onPaginateChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
+    this.setPaginateDisplay(startIndex, endIndex);
+  }
+  setPaginateDisplay(startIndex: number, endIndex: number) {
     this.dataSourceDisplay.data = this.dataSource.data.slice(startIndex, endIndex);
   }
 }

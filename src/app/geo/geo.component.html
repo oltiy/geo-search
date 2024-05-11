@@ -2,37 +2,35 @@
   <mat-form-field appearance="outline">
     <mat-label>Details of countries</mat-label>
     <input [formControl]="searchControl" matInput />
-    <mat-icon matPrefix class="search-input-icon">search</mat-icon>
+    <mat-icon matSuffix class="search-input-icon">search</mat-icon>
   </mat-form-field>
 </div>
 
 @if (countries$ | async; as countries) {
   @if (loading()) {
-    <div class="result-container">
+    <div class="result">
       <mat-spinner></mat-spinner>
     </div>
   } @else {
     @if (countries.length > 0) {
-      <ng-container>
-        <app-results class="result-container" [countries]="countries"></app-results>
-      </ng-container>
+      <app-results class="result" [countries]="countries"></app-results>
     } @else {
-      <div class="result-container">
+      <div class="result">
         <p>Enter a country name to search</p>
       </div>
     }
   }
 } @else {
   @if (inputEmpty()) {
-    <div class="result-container">
+    <div class="result">
       <p>Enter a country name to search</p>
     </div>
   } @else if (loading()) {
-    <div class="result-container">
+    <div class="result">
       <mat-spinner></mat-spinner>
     </div>
   } @else {
-    <div class="result-container">
+    <div class="result">
       <p>No results found</p>
     </div>
   }
