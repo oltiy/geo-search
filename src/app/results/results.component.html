@@ -1,4 +1,4 @@
-@if (countries() && countries()!.length > 0 && dataSource) {
+@if (countries() && dataSource) {
   <div>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="commonName">
@@ -34,14 +34,4 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-} @else {
-  @if (inputEmpty()) {
-    <div class="no-results">
-      <p>Enter a country name to search</p>
-    </div>
-  } @else {
-    <div class="no-results">
-      <p>No results found</p>
-    </div>
-  }
 }

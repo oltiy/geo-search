@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ResultsComponent } from '../results/results.component';
 import { debounceTime, map, Observable, of, switchMap, tap } from 'rxjs';
 import { GeoService } from '../geo.service';
-import { Country } from '../geo.interface';
+import { CountryDisplay } from '../geo.interface';
 import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -27,7 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeoComponent {
-  countries$?: Observable<Country[]>;
+  countries$?: Observable<CountryDisplay[] | null>;
   geoService = inject(GeoService);
   searchControl = new FormControl('');
   loading = signal(false);

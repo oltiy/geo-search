@@ -12,16 +12,28 @@
       <mat-spinner></mat-spinner>
     </div>
   } @else {
-    <ng-container>
-      <app-results class="result-container" [countries]="countries" [inputEmpty]="inputEmpty()"></app-results>
-    </ng-container>
+    @if (countries.length > 0) {
+      <ng-container>
+        <app-results class="result-container" [countries]="countries"></app-results>
+      </ng-container>
+    } @else {
+      <div class="result-container">
+        <p>Enter a country name to search</p>
+      </div>
+    }
   }
-} @else if (loading()) {
-  <div class="result-container">
-    <mat-spinner></mat-spinner>
-  </div>
 } @else {
-  <div class="result-container">
-    <p>Enter a country name to search</p>
-  </div>
+  @if (inputEmpty()) {
+    <div class="result-container">
+      <p>Enter a country name to search</p>
+    </div>
+  } @else if (loading()) {
+    <div class="result-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="result-container">
+      <p>No results found</p>
+    </div>
+  }
 }

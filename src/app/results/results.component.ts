@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnChanges, input } from '@angular/core';
-import { Country } from '../geo.interface';
+import { CountryDisplay } from '../geo.interface';
 import { DecimalPipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
@@ -12,12 +12,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsComponent implements OnChanges {
-  countries = input<Country[] | null>();
-  inputEmpty = input<boolean>();
-  dataSource?: MatTableDataSource<Country>;
+  countries = input<CountryDisplay[] | null>();
+  dataSource?: MatTableDataSource<CountryDisplay>;
 
   ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<Country>(this.countries() ?? []);
+    this.dataSource = new MatTableDataSource<CountryDisplay>(this.countries() ?? []);
   }
 
   displayedColumns: string[] = ['commonName', 'capital', 'currencies', 'languages', 'population', 'flags'];
