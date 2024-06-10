@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input } from '@angular/core';
 import { CountryDisplay } from '../geo.interface';
 import { DecimalPipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -12,17 +12,18 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   styleUrl: './results.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResultsComponent implements OnChanges {
+export class ResultsComponent {
   countries = input<CountryDisplay[] | null>();
-  totalCountries = 0;
+  totalCountries = computed(() => this.countries()?.length ?? 0);
   dataSource!: MatTableDataSource<CountryDisplay>;
   dataSourceDisplay = new MatTableDataSource<CountryDisplay>([]);
   displayedColumns = ['commonName', 'capital', 'currencies', 'languages', 'population', 'flags'];
 
-  ngOnChanges(): void {
-    this.totalCountries = this.countries()?.length ?? 0;
-    this.dataSource = new MatTableDataSource<CountryDisplay>(this.countries() ?? []);
-    this.setPaginateDisplay(0, 10);
+  constructor() {
+    effect(() => {
+      this.dataSource = new MatTableDataSource<CountryDisplay>(this.countries() ?? []);
+      this.setPaginateDisplay(0, 10);
+    });
   }
 
   onPaginateChange(event: PageEvent) {
