@@ -1,22 +1,21 @@
-export interface CountryFromApi {
-  name: { common: string };
-  capital: string[];
-  currencies?: { [key: string]: Currency };
-  languages?: { [key: string]: string };
-  population: number;
-  flags: { png?: string; svg?: string };
+type FlagFormats = 'png' | 'svg';
+
+export interface CountryFromApi extends CountryBase {
+  name?: Record<'common', string>;
+  currencies?: Record<string, Currency>;
+  languages?: Record<string, string>;
 }
 
-export interface CountryDisplay {
+export interface CountryDisplay extends CountryBase {
   commonName?: string;
-  capital: string[];
   currencies?: string[];
   languages?: string[];
+}
+
+export interface CountryBase {
+  capital: string[];
   population: number;
-  flags: {
-    png?: string;
-    svg?: string;
-  };
+  flags: Partial<Record<FlagFormats, string>>;
 }
 
 interface Currency {
